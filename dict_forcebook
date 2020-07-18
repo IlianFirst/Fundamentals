@@ -1,0 +1,67 @@
+till_lumpawaroo = input()
+
+dict_ = {}
+all_usernames = []
+while till_lumpawaroo != "Lumpawaroo":
+    if " | " in till_lumpawaroo:
+        args = till_lumpawaroo.split(" | ")
+        forceSide = args[0]
+        forceUser = args[1]
+
+        if forceSide not in dict_:
+            dict_[forceSide] = []
+
+        if forceUser not in all_usernames:
+            all_usernames.append(forceUser)
+            dict_[forceSide].append(forceUser)
+
+    else:
+        args = till_lumpawaroo.split(" -> ")
+        forceUser = args[0]
+        forceSide = args[1]
+        oldSide = ''
+
+        for key, value in dict_.items():
+            if forceUser in value:
+                oldSide = key
+                break
+
+        if oldSide != '':
+            dict_[oldSide].remove(forceUser)
+            if forceSide not in dict_.keys():
+                dict_[forceSide] = []
+
+            dict_[forceSide].append(forceUser)
+
+        else:
+            if forceSide not in dict_:
+                dict_[forceSide] = []
+
+            dict_[forceSide].append(forceUser)
+        print(f"{forceUser} joins the {forceSide} side!")
+
+    till_lumpawaroo = input()
+
+dict_ = dict(sorted(dict_.items(), key=lambda x: (-len(x[1]), x[0])))
+
+for key, value in dict_.items():
+    if len(value) == 0:
+        continue
+    print(f"Side: {key}, Members: {len(value)}")
+    for value_ in sorted(value):
+        print(f"! {value_}")
+
+# Lighter | Royal
+# Darker | DCay
+# Ivan Ivanov -> Lighter
+# DCay -> Lighter
+# Lumpawaroo
+
+# Lighter | Pedal
+# Lighter | Pedal
+# Darker | Gei
+# Djendur -> Lighter
+# Djendur -> Darker
+# Pedal -> Darker
+# Gei -> Lighter
+# Lumpawaroo
