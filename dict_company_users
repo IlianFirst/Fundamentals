@@ -1,0 +1,36 @@
+
+till_end = input()
+
+companies = {}
+while till_end!="End":
+    args = till_end.split(" -> ")
+    company = args[0]
+    id = args[1]
+    if company not in companies:
+        companies[company] = []
+    if id in companies[company]:
+        till_end = input()
+        continue
+    companies[company].append(id)
+    till_end = input()
+
+companies = dict(sorted(companies.items(), key=lambda x : len(x[1])))
+
+
+for key in sorted(companies.keys()):
+    print(f"{key}")
+    for value in companies[key]:
+        print(f"-- {value}")
+
+# SoftUni -> AA12345
+# SoftUni -> BB12345
+# Microsoft -> CC12345
+# HP -> BB12345
+# End
+
+# SoftUni -> AA12345
+# SoftUni -> CC12344
+# Lenovo -> XX23456
+# SoftUni -> AA12345
+# Movement -> DD11111
+# End
