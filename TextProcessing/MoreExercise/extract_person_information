@@ -1,0 +1,32 @@
+count_lines = int(input())
+
+name = ''
+age = ''
+
+first_symbol_index = 0
+last_symbol_index = 0
+
+first_symbol_index_age = 0
+last_symbol_index_age = 0
+
+for _ in range(1, count_lines+1):
+    line = input()
+    for ch in range(len(line)):
+        if line[ch] == "@":
+            first_symbol_index = ch
+        if line[ch] == "|":
+            last_symbol_index = ch
+        if line[ch] == "#":
+            first_symbol_index_age = ch
+        if line[ch] == "*":
+            last_symbol_index_age = ch
+
+    for i in range(first_symbol_index+1, last_symbol_index):
+        name+= line[i]
+    for j in range(first_symbol_index_age+1, last_symbol_index_age):
+        age+= line[j]
+    print(f"{name} is {age} years old.")
+    name = ''
+    age = ''
+
+
