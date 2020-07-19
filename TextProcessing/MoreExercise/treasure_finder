@@ -1,0 +1,45 @@
+keys = list(map(int, input().split(" ")))
+
+till_find = input()
+result = ''
+index_list = 0
+material = ''
+coordinates = ''
+
+while till_find != "find":
+    for ch in till_find:
+        result += chr(ord(ch) - keys[index_list])
+        index_list += 1
+        if index_list == len(keys):
+            index_list = 0
+
+    first_index_material = 0
+    last_index_material = 0
+    first_index_coordinates = 0
+    last_index_coordinates = 0
+    for element in range(0, len(result)):
+        if result[element] == "&" and first_index_material == 0:
+            first_index_material = element
+            continue
+        if result[element] == "&" and last_index_material == 0:
+            last_index_material = element
+        if result[element] == "<":
+            first_index_coordinates = element
+        if result[element] == ">":
+            last_index_coordinates = element
+    for index in range(first_index_material + 1, last_index_material):
+        material += result[index]
+    for second_index in range(first_index_coordinates + 1, last_index_coordinates):
+        coordinates += result[second_index]
+
+    print(f"Found {material} at {coordinates}")
+    result = ''
+    index_list = 0
+    material = ''
+    coordinates = ''
+    till_find = input()
+
+# 1 2 1 3
+# ikegfp'jpne)bv=41P83X@
+# ujfufKt)Tkmyft'duEprsfjqbvfv=53V55XA
+# find
