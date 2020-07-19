@@ -1,0 +1,19 @@
+
+till_command = input()
+
+count = 0
+while till_command != "end of comments":
+    if count == 0 :
+        print("<h1>")
+        print(f"    {till_command}")
+        print("</h1>")
+    elif count == 1:
+        print("<article>")
+        print(f"    {till_command}")
+        print("</article>")
+    else:
+        print("<div>")
+        print(f"    {till_command}")
+        print("</div>")
+    count+=1
+    till_command = input()
