@@ -1,0 +1,39 @@
+MORSE_CODE_DICT = {'A': '.-', 'B': '-...',
+                   'C': '-.-.', 'D': '-..', 'E': '.',
+                   'F': '..-.', 'G': '--.', 'H': '....',
+                   'I': '..', 'J': '.---', 'K': '-.-',
+                   'L': '.-..', 'M': '--', 'N': '-.',
+                   'O': '---', 'P': '.--.', 'Q': '--.-',
+                   'R': '.-.', 'S': '...', 'T': '-',
+                   'U': '..-', 'V': '...-', 'W': '.--',
+                   'X': '-..-', 'Y': '-.--', 'Z': '--..'}
+letter = ''
+word = ''
+string = input().split("|")
+
+while string != []:
+    string[0] = string[0].strip()
+    while string[0] != '':
+        for ch in string[0]:
+            if ch == " ":
+                string[0] = string[0].replace(ch, '', 1)
+                break
+            letter += ch
+            string[0] = string[0].replace(ch, '', 1)
+
+
+        if letter in MORSE_CODE_DICT.values():
+            for key in MORSE_CODE_DICT.keys():
+                if MORSE_CODE_DICT[key] == letter:
+                    letter = key
+                    break
+
+            word += letter
+            letter = ''
+
+
+
+    word.replace(" ", "")
+    string = string[1:]
+    print(word, end = ' ')
+    word = ''
