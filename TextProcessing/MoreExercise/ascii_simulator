@@ -1,0 +1,15 @@
+starting_letter = input()
+ending_letter = input()
+
+starting_letter_value = ord(starting_letter)
+ending_letter_value = ord(ending_letter)
+
+random_string = input()
+
+result = 0
+for ch in random_string:
+    ch_value = ord(ch)
+    if starting_letter_value < ch_value < ending_letter_value:
+        result += ch_value
+
+print(result)
