@@ -1,0 +1,46 @@
+materials = input().split(" ")
+
+needed_materials = {'shards': 0, 'fragments': 0, 'motes': 0}
+junk_materials = {}
+
+while True:
+    if materials[0] == '':
+        break
+    value = int(materials[0])
+    key = materials[1]
+    format_key = key.lower()
+    if format_key == "shards" or format_key == "fragments" or format_key == "motes":
+        needed_materials[format_key] += int(value)
+        if format_key == "shards" and needed_materials[format_key] >= 250:
+            needed_materials[format_key] -= 250
+            print("Shadowmourne obtained!")
+            break
+
+        elif format_key == "fragments" and needed_materials[format_key] >= 250:
+            needed_materials[format_key] -= 250
+            print("Valanyr obtained!")
+            break
+
+        elif format_key == "motes" and needed_materials[format_key] >= 250:
+            needed_materials[format_key] -= 250
+            print("Dragonwrath obtained!")
+            break
+
+    else:
+        if format_key not in junk_materials:
+            junk_materials[format_key] = 0
+        junk_materials[format_key] += int(value)
+
+    materials.remove(str(value))
+    materials.remove(key)
+    if materials == []:
+        materials = input().split(" ")
+
+
+needed_materials = dict(sorted(needed_materials.items(), key=lambda x: (-x[1], x[0])))
+for key,value in needed_materials.items():
+    print(f"{key}: {value}")
+
+junk_materials = dict(sorted(junk_materials.items(), key=lambda x: (x[0], -x[1])))
+for key,value in junk_materials.items():
+    print(f"{key}: {value}")
