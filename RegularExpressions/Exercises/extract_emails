@@ -1,0 +1,8 @@
+import re
+
+input_text = input()
+pattern = r'(?<=\s)([a-z]+|\d+)(\d+|\w+|\.+|-+)([a-z]+|\d+)\@[a-z]+\-?[a-z]+\.[a-z]+(\.[a-z]+)?'
+matches = re.finditer(pattern, input_text)
+
+for match in matches:
+    print(match[0])
