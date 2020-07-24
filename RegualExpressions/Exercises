@@ -1,0 +1,10 @@
+import re
+input_text = input()
+matches = []
+while input_text != "":
+
+    pattern = r'\d+'
+    matches += re.findall(pattern, input_text)
+    input_text = input()
+
+print(" ".join(matches))
