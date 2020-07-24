@@ -1,0 +1,6 @@
+import re
+
+input_text = input().lower()
+searched_word = input().lower()
+matches = re.findall(f'\\b{searched_word}+\\b', input_text)
+print(len(matches))
