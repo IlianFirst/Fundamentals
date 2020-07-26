@@ -1,0 +1,30 @@
+stores_dict = {}
+command = input()
+
+while command!="END":
+    args = command.split("->")
+    navigation = args[0]
+    store = args[1]
+    if navigation == "Add":
+        if store not in stores_dict:
+            stores_dict[store] = []
+        items = args[2].split(",")
+        for index in range(len(items)):
+            stores_dict[store].append(items[index])
+
+    else:
+        if store in stores_dict:
+            stores_dict.pop(store)
+    command = input()
+
+
+stores_dict = dict(sorted(stores_dict.items(), key= lambda x: (len(x[1]), x[0]) , reverse=True))
+
+print("Stores list:")
+for key,values in stores_dict.items():
+    print(f"{key}")
+    for value in values:
+        print(f"<<{value}>>")
+
+
+
