@@ -1,0 +1,24 @@
+import re
+
+command = input()
+real_name = ''
+pattern = r'([A-Za-z!@#$?0-9]+)=(\d+)<<(.+)'
+while command != "Last note":
+    match = re.fullmatch(pattern, command)
+    if match is None:
+        print("Nothing found!")
+        command = input()
+        continue
+    name = match[1]
+    length = int(match[2])
+    geohash = match[3]
+    if len(geohash) != length:
+        print("Nothing found!")
+        command = input()
+        continue
+    for character in name:
+        if character.isalnum() is True:
+            real_name += character
+    print(f"Coordinates found! {real_name} -> {geohash}")
+    real_name = ''
+    command = input()
