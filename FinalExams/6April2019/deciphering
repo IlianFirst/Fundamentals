@@ -1,0 +1,17 @@
+text = input()
+substrings = input().split(" ")
+is_valid = True
+new_text = ''
+for character in text:
+    if (100 > ord(character) or ord(character) > 125) and ord(character) != 35:
+        is_valid = False
+
+if is_valid == False:
+    print("This is not the book you are looking for.")
+else:
+    for character in text:
+        new_text += chr(ord(character) - 3)
+
+    while substrings[0] in new_text:
+        new_text = new_text.replace(substrings[0], substrings[1])
+    print(new_text)
