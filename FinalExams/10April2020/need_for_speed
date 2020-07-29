@@ -1,0 +1,57 @@
+number_of_cars = int(input())
+car_dict = {}
+
+for i in range(number_of_cars):
+    car = input()
+    args = car.split("|")
+    name = args[0]
+    if name not in car_dict:
+        car_dict[name] = []
+    mileage = int(args[1])
+    fuel = int(args[2])
+    car_dict[name].append(mileage)
+    car_dict[name].append(fuel)
+
+input_navigation = input()
+while input_navigation != "Stop":
+    args = input_navigation.split(" : ")
+    command = args[0]
+    if command == "Drive":
+        car = args[1]
+        distance = int(args[2])
+        needed_fuel = int(args[3])
+        if needed_fuel > car_dict[car][1]:
+            print("Not enough fuel to make that ride")
+        else:
+            car_dict[car][0] += distance
+            car_dict[car][1] -= needed_fuel
+            print(f"{car} driven for {distance} kilometers. {needed_fuel} liters of fuel consumed.")
+        if car_dict[car][0] > 100_000:
+            car_dict.pop(car)
+            print(f"Time to sell the {car}!")
+    if command == "Refuel":
+        car = args[1]
+        refilled_fuel = int(args[2])
+        if refilled_fuel + car_dict[car][1] <= 75:
+            car_dict[car][1] += refilled_fuel
+            print(f"{car} refueled with {refilled_fuel} liters")
+        else:
+
+            refilled_fuel = 75 - car_dict[car][1]
+            car_dict[car][1] = 75
+            print(f"{car} refueled with {refilled_fuel} liters")
+
+    if command == "Revert":
+        car = args[1]
+        mileage_decreased = int(args[2])
+        if car_dict[car][0] - mileage_decreased >= 10_000:
+            car_dict[car][0] -= mileage_decreased
+            print(f"{car} mileage decreased by {mileage_decreased} kilometers")
+        else:
+            car_dict[car][0] = 10_000
+
+    input_navigation = input()
+
+car_dict = dict(sorted(car_dict.items(), key=lambda x: (-x[1][0], x[0])))
+for key in car_dict:
+    print(f"{key} -> Mileage: {car_dict[key][0]} kms, Fuel in the tank: {car_dict[key][1]} lt.")
