@@ -1,0 +1,29 @@
+import re
+string = input()
+pattern = r'#[A-Za-z]{3,}##[A-Za-z]{3,}#|@[A-Za-z]{3,}@@[A-Za-z]{3,}@'
+matches = re.findall(pattern, string)
+valid_list = []
+count = 0
+for element in matches:
+    if "#" in element:
+        element = element.strip("#")
+        args = element.split("##")
+
+    else:
+        element = element.strip("@")
+        args = element.split("@@")
+
+
+    if args[0] == args[1][::-1]:
+        valid_list.append(f'{args[0]} <=> {args[1]}')
+        count+=1
+
+if len(matches) == 0:
+    print("No word pairs found!")
+else:
+    print(f"{len(matches)} word pairs found!")
+if count>0:
+    print("The mirror words are:")
+    print(", ".join(map(str, valid_list)))
+else:
+    print("No mirror words!")
