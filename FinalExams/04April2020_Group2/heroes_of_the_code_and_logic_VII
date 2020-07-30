@@ -1,0 +1,66 @@
+
+hero_count = int(input())
+hero_dict = {}
+for n in range(hero_count):
+    hero_info = input()
+    args = hero_info.split(" ")
+    hero_name = args[0]
+    hero_HP = int(args[1])
+    hero_MP = int(args[2])
+    if hero_name not in hero_dict:
+        hero_dict[hero_name] =  []
+    hero_dict[hero_name].append(hero_HP)
+    hero_dict[hero_name].append(hero_MP)
+
+command_info = input()
+while command_info != "End":
+    args = command_info.split(" - ")
+    command = args[0]
+    if command == "CastSpell":
+        hero_name = args[1]
+        MP_needed = int(args[2])
+        spell_name = args[3]
+        if hero_dict[hero_name][1] >= MP_needed:
+            hero_dict[hero_name][1] -= MP_needed
+            print(f"{hero_name} has successfully cast {spell_name} and now has {hero_dict[hero_name][1]} MP!")
+        else:
+            print(f"{hero_name} does not have enough MP to cast {spell_name}!")
+    if command == "TakeDamage":
+        hero_name = args[1]
+        damage = int(args[2])
+        attacker = args[3]
+        if hero_dict[hero_name][0] - damage > 0:
+            hero_dict[hero_name][0] -= damage
+            print(f"{hero_name} was hit for {damage} HP by {attacker} and now has {hero_dict[hero_name][0]} HP left!")
+        else:
+            hero_dict.pop(hero_name)
+            print(f"{hero_name} has been killed by {attacker}!")
+    if command == "Recharge":
+        hero_name = args[1]
+        amount = int(args[2])
+        if hero_dict[hero_name][1]+amount>200:
+            amount = 200 - hero_dict[hero_name][1]
+            hero_dict[hero_name][1] = 200
+            print(f"{hero_name} recharged for {amount} MP!")
+        else:
+            hero_dict[hero_name][1] += amount
+            print(f"{hero_name} recharged for {amount} MP!")
+    if command == "Heal":
+        hero_name = args[1]
+        amount = int(args[2])
+        if hero_dict[hero_name][0] + amount > 100:
+            amount = 100 - hero_dict[hero_name][0]
+            hero_dict[hero_name][0] = 100
+            print(f"{hero_name} healed for {amount} HP!")
+        else:
+            hero_dict[hero_name][0] += amount
+            print(f"{hero_name} healed for {amount} HP!")
+
+
+    command_info = input()
+
+hero_dict = dict(sorted(hero_dict.items(), key=lambda x: (-x[1][0], x[0])))
+for hero in hero_dict:
+    print(hero)
+    print(f"  HP: {hero_dict[hero][0]}")
+    print(f"  MP: {hero_dict[hero][1]}")
