@@ -1,0 +1,12 @@
+import re
+n = int(input())
+for _ in range(n):
+    string = input()
+    pattern = r"\|([A-Z]{4,})\|:#([A-Za-z]+\s[A-Za-z]+)#"
+    matches = re.fullmatch(pattern , string)
+    if matches is not None:
+        print(f"{matches.group(1)}, The {matches.group(2)}")
+        print(f">> Strength: {len(matches.group(1))}")
+        print(f">> Armour: {len(matches.group(2))}")
+    else:
+        print("Access denied!")
