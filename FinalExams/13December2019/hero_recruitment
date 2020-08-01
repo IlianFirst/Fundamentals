@@ -1,0 +1,37 @@
+heroes = {}
+till_end = input()
+while till_end != "End":
+    args = till_end.split(" ")
+    command = args[0]
+    if command == "Enroll":
+        hero_name = args[1]
+        if hero_name not in heroes:
+            heroes[hero_name] = []
+        else:
+            print(f"{hero_name} is already enrolled.")
+    elif command == "Learn":
+        hero_name = args[1]
+        spell_name = args[2]
+        if hero_name not in heroes:
+            print(f"{hero_name} doesn't exist.")
+        elif spell_name in heroes[hero_name]:
+            print(f"{hero_name} has already learnt {spell_name}.")
+        else:
+            heroes[hero_name].append(spell_name)
+    else:
+        hero_name = args[1]
+        spell_name = args[2]
+        if hero_name not in heroes:
+            print(f"{hero_name} doesn't exist.")
+        elif spell_name not in heroes[hero_name]:
+            print(f"{hero_name} doesn't know {spell_name}.")
+        else:
+            heroes[hero_name].remove(spell_name)
+
+    till_end = input()
+
+heroes = dict(sorted(heroes.items(), key=lambda x: (-len(x[1]), x[0])))
+if len(heroes) > 0:
+    print("Heroes:")
+for key in heroes:
+    print(f"== {key}: {', '.join(map(str, heroes[key]))}")
