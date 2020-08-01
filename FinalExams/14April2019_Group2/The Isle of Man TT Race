@@ -1,0 +1,20 @@
+import re
+pattern = r'([\#\$\%\*\&])([A-Za-z]+)\1=(\d+)!!(.+)'
+string = input()
+while True:
+
+    matches = re.fullmatch(pattern, string)
+    if matches is None:
+        print("Nothing found!")
+        string = input()
+        continue
+    elif int(matches.group(3)) != len(matches.group(4)):
+        print("Nothing found!")
+        string = input()
+        continue
+    else:
+        decrypted = ''
+        for char in matches.group(4):
+            decrypted += chr(ord(char)++int(matches.group(3)))
+        print(f"Coordinates found! {matches.group(2)} -> {decrypted}")
+        break
