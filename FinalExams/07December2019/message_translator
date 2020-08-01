@@ -1,0 +1,15 @@
+import re
+pattern = r'!([A-Z][a-z]{2,})!:\[([A-Za-z]{8,})\]'
+n = int(input())
+for _ in range(n):
+    string = input()
+    matches = re.fullmatch(pattern, string)
+    if matches is None:
+        print("The message is invalid")
+        continue
+    ASCII_list = []
+    for char in matches.group(2):
+        ASCII_list.append(ord(char))
+    print(f"{matches.group(1)}: {' '.join(map(str, ASCII_list))}")
+
+
