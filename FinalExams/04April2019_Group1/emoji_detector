@@ -1,0 +1,29 @@
+import re
+
+text = input()
+pattern_emojis = r"(?P<sign>\*\*|::)(?P<match>[A-Z][a-z]{2,})\1"
+pattern_numbers = r"\d"
+
+matches_numbers = re.findall(pattern_numbers, text)
+threshold = 1
+for number in matches_numbers:
+    threshold *= int(number)
+
+matches_count = re.finditer(pattern_emojis, text)
+count = 0
+print(f"Cool threshold: {threshold}")
+for match in matches_count:
+    count+=1
+print(f"{count} emojis found in the text. The cool ones are:")
+
+matches_emojis = re.finditer(pattern_emojis, text)
+multiply = 1
+for matches in matches_emojis:
+    for char in matches.group('match'):
+        multiply+=ord(char)
+    if multiply<threshold:
+        multiply = 1
+        continue
+    multiply = 1
+    print(f"{matches.group('sign')}{matches.group('match')}{matches.group('sign')}")
+
