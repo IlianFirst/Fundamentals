@@ -1,0 +1,33 @@
+
+roads = {}
+till_end = input()
+while till_end != "END":
+    args = till_end.split("->")
+    command = args[0]
+    if command == "Add":
+        road = args[1]
+        racer = args[2]
+        if road not in roads:
+            roads[road] = []
+        roads[road].append(racer)
+    if command == "Move":
+        currentRoad = args[1]
+        racer = args[2]
+        nextRoad = args[3]
+        if racer not in roads[currentRoad]:
+            till_end = input()
+            continue
+        roads[currentRoad].remove(racer)
+        roads[nextRoad].append(racer)
+    if command == "Close":
+        road = args[1]
+        if road in roads:
+            roads.pop(road)
+    till_end = input()
+
+roads = dict(sorted(roads.items(), key=lambda x: (-len(x[1]),x[0])))
+print("Practice sessions:")
+for road in roads:
+    print(road)
+    for racer in roads[road]:
+        print(f"++{racer}")
