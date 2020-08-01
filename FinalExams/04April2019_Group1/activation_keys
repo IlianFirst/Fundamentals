@@ -1,0 +1,33 @@
+raw_activation_key = input()
+input_line = input()
+while input_line != "Generate":
+    args = input_line.split(">>>")
+    command = args[0]
+    if command == "Contains":
+        substring = args[1]
+        if substring in raw_activation_key:
+            print(f"{raw_activation_key} contains {substring}")
+        else:
+            print("Substring not found!")
+    if command == "Flip":
+        case_type = args[1]
+        startIndex = int(args[2])
+        endIndex = int(args[3])
+        if case_type == "Upper":
+            raw_activation_key = raw_activation_key[0:startIndex] + raw_activation_key[
+                                                                    startIndex:endIndex].upper() + raw_activation_key[
+                                                                                                   endIndex:]
+        if case_type == "Lower":
+            raw_activation_key = raw_activation_key[0:startIndex] + raw_activation_key[
+                                                                    startIndex:endIndex].lower() + raw_activation_key[
+                                                                                                   endIndex:]
+        print(raw_activation_key)
+    if command == "Slice":
+        startIndex = int(args[1])
+        endIndex = int(args[2])
+        raw_activation_key = raw_activation_key[0:startIndex] + raw_activation_key[endIndex:]
+        print(raw_activation_key)
+
+    input_line = input()
+
+print(f"Your activation key is: {raw_activation_key}")
