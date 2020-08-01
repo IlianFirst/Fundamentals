@@ -1,0 +1,36 @@
+skill = input()
+input_line = input()
+while input_line != "For Azeroth":
+    args = input_line.split(" ")
+    command = args[0]
+    if command == "GladiatorStance":
+        skill = skill.upper()
+        print(skill)
+    elif command == "DefensiveStance":
+        skill = skill.lower()
+        print(skill)
+    elif command == "Dispel":
+        index = int(args[1])
+        letter = args[2]
+        if index < 0 or index >= len(skill):
+            print("Dispel too weak.")
+        else:
+            skill = skill[0:index] + letter + skill[index + 1:]
+            print("Success!")
+    elif command == "Target":
+        subcommand = args[1]
+        if subcommand == "Change":
+            substring = args[2]
+            second_substring = args[3]
+            skill = skill.replace(substring, second_substring)
+            print(skill)
+        elif subcommand == "Remove":
+            substring = args[2]
+            skill = skill.replace(substring, "")
+            print(skill)
+        else:
+            print("Command doesn't exist!")
+    else:
+        print("Command doesn't exist!")
+
+    input_line = input()
