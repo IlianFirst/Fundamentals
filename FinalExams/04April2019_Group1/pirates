@@ -1,0 +1,46 @@
+till_sail = input()
+targets = {}
+while till_sail != "Sail":
+    args = till_sail.split("||")
+    city = args[0]
+    population = int(args[1])
+    gold = int(args[2])
+    if city not in targets:
+        targets[city] = [population, gold]
+    else:
+        targets[city][0] += population
+        targets[city][1] += gold
+    till_sail = input()
+
+till_end = input()
+while till_end != "End":
+    args = till_end.split("=>")
+    command = args[0]
+    if command == "Plunder":
+        city = args[1]
+        people_killed = int(args[2])
+        gold_grabbed = int(args[3])
+        if targets[city][0]>0 and targets[city][1]>0:
+            targets[city][0] -= people_killed
+            targets[city][1] -= gold_grabbed
+            print(f"{city} plundered! {gold_grabbed} gold stolen, {people_killed} citizens killed.")
+        if targets[city][0]<=0 or targets[city][1]<=0:
+            targets.pop(city)
+            print(f'{city} has been wiped off the map!')
+    if command == "Prosper":
+        city = args[1]
+        gold = int(args[2])
+        if gold < 0 :
+            print(f"Gold added cannot be a negative number!")
+        else:
+            targets[city][1]+=gold
+            print(f"{gold} gold added to the city treasury. {city} now has {targets[city][1]} gold.")
+    till_end = input()
+
+if len(targets) > 0:
+    print(f"Ahoy, Captain! There are {len(targets)} wealthy settlements to go to:")
+    targets = dict(sorted(targets.items(), key=lambda x: (-x[1][1], x[0])))
+    for key in targets:
+        print(f"{key} -> Population: {targets[key][0]} citizens, Gold: {targets[key][1]} kg")
+else:
+    print(f"Ahoy, Captain! All targets have been plundered and destroyed!")
