@@ -1,0 +1,35 @@
+followers_dict = {}
+input_line = input()
+
+while input_line != "Log out":
+    args = input_line.split(": ")
+    command = args[0]
+    if command == "New follower":
+        username = args[1]
+        if username not in followers_dict:
+            followers_dict[username] = [0, 0]
+    if command == "Like":
+        username = args[1]
+        count = int(args[2])
+        if username not in followers_dict:
+            followers_dict[username] = [count, 0]
+        else:
+            followers_dict[username][0]+=count
+    if command == "Comment":
+        username = args[1]
+        if username not in followers_dict:
+            followers_dict[username] = [0, 1]
+        else:
+            followers_dict[username][1] += 1
+    if command == "Blocked":
+        username = args[1]
+        if username not in followers_dict:
+            print(f"{username} doesn't exist.")
+        else:
+            followers_dict.pop(username)
+    input_line = input()
+
+followers_dict = dict(sorted(followers_dict.items(), key= lambda x: (-x[1][0], x[0])))
+print(f"{len(followers_dict)} followers")
+for key in followers_dict:
+    print(f'{key}: {sum(followers_dict[key])}')
