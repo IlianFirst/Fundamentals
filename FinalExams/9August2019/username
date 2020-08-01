@@ -1,0 +1,39 @@
+username = input()
+input_line = input()
+while input_line != "Sign up":
+    args = input_line.split(" ")
+    command = args[0]
+    if command == "Case":
+        lower_or_upper = args[1]
+        if lower_or_upper == "lower":
+            username = username.lower()
+        else:
+            username = username.upper()
+        print(username)
+    if command == "Reverse":
+        startIndex = int(args[1])
+        endIndex = int(args[2])
+        if len(username) > startIndex >= 0 and len(username) > endIndex >= 0:
+            reversed_substring = username[startIndex:endIndex+1:]
+            reversed_substring = reversed_substring[::-1]
+            print(reversed_substring)
+    if command == "Cut":
+        substring = args[1]
+        if substring not in username:
+            print(f"The word {username} doesn't contain {substring}.")
+        else:
+            username = username.replace(substring, "")
+            print(username)
+    if command == "Replace":
+        char = args[1]
+        if char in username:
+            username = username.replace(char, "*")
+            print(username)
+    if command == "Check":
+        char = args[1]
+        if char not in username:
+            print(f"Your username must contain {char}.")
+        else:
+            print("Valid")
+
+    input_line = input()
