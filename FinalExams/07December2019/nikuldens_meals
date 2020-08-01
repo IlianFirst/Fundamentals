@@ -1,0 +1,32 @@
+guests = {}
+till_stop = input()
+unliked_meals = 0
+while till_stop != "Stop":
+    args = till_stop.split("-")
+    command = args[0]
+    if command == "Like":
+        guest = args[1]
+        meal = args[2]
+        if guest not in guests:
+            guests[guest] = []
+        if meal in guests[guest]:
+            till_stop = input()
+            continue
+        guests[guest].append(meal)
+    else:
+        guest = args[1]
+        meal = args[2]
+        if guest not in guests:
+            print(f"{guest} is not at the party.")
+        elif meal not in guests[guest]:
+            print(f"{guest} doesn't have the {meal} in his/her collection.")
+        else:
+            guests[guest].remove(meal)
+            print(f"{guest} doesn't like the {meal}.")
+            unliked_meals += 1
+    till_stop = input()
+
+guests = dict(sorted(guests.items(), key=lambda x: (-len(x[1]), x[0])))
+for guest in guests:
+    print(f"{guest}: {', '.join(map(str,guests[guest]))}")
+print(f"Unliked meals: {unliked_meals}")
