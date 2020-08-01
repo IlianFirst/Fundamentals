@@ -1,0 +1,45 @@
+string = input()
+till_finish = input()
+while till_finish != "Finish":
+    args = till_finish.split(" ")
+    command = args[0]
+    if command == "Replace":
+        currentChar = args[1]
+        newChar = args[2]
+        string = string.replace(currentChar, newChar)
+        print(string)
+    if command == "Cut":
+        startIndex = int(args[1])
+        endIndex = int(args[2])
+        if len(string) > startIndex >= 0 and len(string) > endIndex >= 0:
+            string = string[0:startIndex] + string[endIndex+1:]
+            print(string)
+        else:
+            print("Invalid indexes!")
+    if command == "Make":
+        case_type = args[1]
+        if case_type == "Upper":
+            string = string.upper()
+        else:
+            string = string.lower()
+        print(string)
+    if command == "Check":
+        substring = args[1]
+        if substring not in string:
+            print(f"Message doesn't contain {substring}")
+        else:
+            print(f"Message contains {substring}")
+    if command == "Sum":
+        startIndex = int(args[1])
+        endIndex = int(args[2])
+        if len(string) > startIndex >= 0 and len(string) > endIndex >= 0:
+            substring = string[startIndex:endIndex+1]
+            sum = 0
+            for char in substring:
+                sum += ord(char)
+            print(sum)
+
+        else:
+            print("Invalid indexes!")
+
+    till_finish = input()
