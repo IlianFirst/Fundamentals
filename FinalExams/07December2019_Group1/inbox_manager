@@ -1,0 +1,32 @@
+
+usernames = {}
+input_line = input()
+while input_line != "Statistics":
+    args = input_line.split("->")
+    command = args[0]
+    if command == "Add":
+        username = args[1]
+        if username in usernames:
+            print(f"{username} is already registered")
+        else:
+            usernames[username] = []
+    elif command == "Send":
+        username = args[1]
+        email = args[2]
+        if username in usernames:
+            usernames[username].append(email)
+    else:
+        username = args[1]
+        if username in usernames:
+            usernames.pop(username)
+        else:
+            print(f"{username} not found!")
+
+    input_line = input()
+
+usernames = dict(sorted(usernames.items(), key=lambda x: (-len(x[1]),x[0])))
+print(f"Users count: {len(usernames)}")
+for username in usernames:
+    print(username)
+    for email in usernames[username]:
+        print(f"- {email}")
