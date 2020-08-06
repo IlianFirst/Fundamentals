@@ -1,0 +1,38 @@
+string = input()
+till_done = input()
+while till_done != "Done":
+    args = till_done.split(" ")
+    command = args[0]
+    if command == "Change":
+        char = args[1]
+        replacement = args[2]
+        string = string.replace(char, replacement)
+        print(string)
+    elif command == "Includes":
+        substring = args[1]
+        if substring in string:
+            print("True")
+        else:
+            print("False")
+    elif command == "End":
+        substring = args[1]
+        if string[len(string) - len(substring):] == substring:
+            print("True")
+        else:
+            print("False")
+    elif command == "Uppercase":
+        string = string.upper()
+        print(string)
+    elif command == "FindIndex":
+        char = args[1]
+        if char in string:
+            for index in range(0, len(string)):
+                if char == string[index]:
+                    break
+            print(index)
+    else:
+        startIndex = int(args[1])
+        length = int(args[2])
+        string = string[startIndex:startIndex+length]
+        print(string)
+    till_done = input()
