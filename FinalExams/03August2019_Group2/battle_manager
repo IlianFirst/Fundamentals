@@ -1,0 +1,38 @@
+people = {}
+till_results = input()
+while till_results != "Results":
+    args = till_results.split(":")
+    command = args[0]
+    if command == "Add":
+        personName = args[1]
+        health = int(args[2])
+        energy = int(args[3])
+        if personName not in people:
+            people[personName] = [health, energy]
+        else:
+            people[personName][0] += health
+    elif command == "Attack":
+        attackerName = args[1]
+        defenderName = args[2]
+        damage = int(args[3])
+        if attackerName in people and defenderName in people:
+            people[defenderName][0] -= damage
+            people[attackerName][1] -= 1
+            if people[defenderName][0] <= 0:
+                people.pop(defenderName)
+                print(f"{defenderName} was disqualified!")
+            if people[attackerName][1] == 0:
+                people.pop(attackerName)
+                print(f"{attackerName} was disqualified!")
+    else:
+        username = args[1]
+        if username == "All":
+            people.clear()
+        else:
+            people.pop(username)
+    till_results = input()
+
+people = dict(sorted(people.items(), key=lambda x: (-x[1][0], x[0])))
+print(f"People count: {len(people)}")
+for person in people:
+    print(f"{person} - {people[person][0]} - {people[person][1]}")
