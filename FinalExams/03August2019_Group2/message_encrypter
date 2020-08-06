@@ -1,0 +1,13 @@
+import re
+pattern = r'(\*|@)([A-Z][a-z]{2,})\1: \[([A-Za-z])\]\|\[([A-Za-z])\]\|\[([A-Za-z])\]\|$'
+n = int(input())
+for _ in range(n):
+    string = input()
+    match = re.findall(pattern, string)
+    if match == []:
+        print("Valid message not found!")
+        continue
+
+    matches = [item for t in match for item in t]
+    print(f"{matches[1]}: {ord(matches[2])} {ord(matches[3])} {ord(matches[4])}")
+
