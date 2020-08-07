@@ -1,0 +1,38 @@
+string = input()
+till_end = input()
+while till_end != "End":
+    args = till_end.split(" ")
+    command = args[0]
+    if command == "Translate":
+        char = args[1]
+        replacement = args[2]
+        string = string.replace(char, replacement)
+        print(string)
+    if command == "Includes":
+        substring = args[1]
+        if substring in string:
+            print("True")
+        else:
+            print("False")
+    if command == "Start":
+        substring = args[1]
+        start_of_string = string[:len(substring)]
+        if substring == start_of_string:
+            print("True")
+        else:
+            print("False")
+    if command == "Lowercase":
+        string = string.lower()
+        print(string)
+    if command == "FindIndex":
+        char = args[1]
+        for index in range(len(string)-1,-1,-1):
+            if string[index] == char:
+                break
+        print(index)
+    if command == "Remove":
+        startIndex = int(args[1])
+        count = int(args[2])
+        string = string[:startIndex]+string[startIndex+count:]
+        print(string)
+    till_end = input()
