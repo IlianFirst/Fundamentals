@@ -1,0 +1,42 @@
+capacity = int(input())
+input_line = input()
+usernames = {}
+
+while input_line != "Statistics":
+
+    args = input_line.split("=")
+    command = args[0]
+    if command == "Add":
+        username = args[1]
+        sent = int(args[2])
+        received = int(args[3])
+        if username not in usernames:
+            usernames[username] = [sent, received]
+
+    if command == "Message":
+        sender = args[1]
+        receiver = args[2]
+        if sender in usernames and receiver in usernames:
+            usernames[sender][0] += 1
+            usernames[receiver][1] += 1
+            if sum(usernames[sender]) == capacity:
+                usernames.pop(sender)
+                print(f"{sender} reached the capacity!")
+            if sum(usernames[receiver]) == capacity:
+                usernames.pop(receiver)
+                print(f"{receiver} reached the capacity!")
+    if command == "Empty":
+        username = args[1]
+        if username == "All":
+            usernames.clear()
+        else:
+            if username in usernames:
+                usernames.pop(username)
+
+    input_line = input()
+usernames = dict(sorted(usernames.items(), key = lambda x: (-x[1][1], x[0])))
+print(f"Users count: {len(usernames)}")
+for username in usernames:
+    print(f"{username} - {sum(usernames[username])}")
+
+
