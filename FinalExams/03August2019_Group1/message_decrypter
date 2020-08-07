@@ -1,0 +1,11 @@
+import re
+
+pattern = r'(\$|%)([A-Z][a-z]{2,})\1: \[(\d+)\]\|\[(\d+)\]\|\[(\d+)\]\|'
+n = int(input())
+for _ in range(n):
+    input_line = input()
+    matches = re.fullmatch(pattern, input_line)
+    if matches is None:
+        print("Valid message not found!")
+        continue
+    print(f"{matches.group(2)}: {chr(int(matches.group(3)))}{chr(int(matches.group(4)))}{chr(int(matches.group(5)))}")
