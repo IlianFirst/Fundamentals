@@ -1,0 +1,39 @@
+bands = {}
+time_dict = {}
+input_line = input()
+total_time = 0
+while input_line != "start of concert":
+    args = input_line.split("; ")
+    command = args[0]
+    if command == "Add":
+        bandName = args[1]
+        members = args[2].split(", ")
+        if bandName not in bands:
+            bands[bandName] = members
+        else:
+            for member in members:
+                if member not in bands[bandName]:
+                    bands[bandName].append(member)
+    else:
+        bandName = args[1]
+        time = int(args[2])
+
+        if bandName not in bands:
+            bands[bandName] = []
+        if bandName not in time_dict:
+            time_dict[bandName] = 0
+
+        time_dict[bandName] += time
+        total_time += time
+    input_line = input()
+
+
+print(f"Total time: {total_time}")
+time_dict = dict(sorted(time_dict.items(), key=lambda x: (-x[1],x[0])))
+for bandName in time_dict:
+    print(f"{bandName} -> {time_dict[bandName]}")
+
+group_wanted = input()
+print(group_wanted)
+for member in bands[group_wanted]:
+     print(f"=> {member}")
