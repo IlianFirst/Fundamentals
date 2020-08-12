@@ -1,0 +1,13 @@
+import re
+pattern = r"(=|\/)([A-Z][A-Za-z]{2,})\1"
+string = input()
+matches = re.findall(pattern, string, re.MULTILINE)
+
+destinations = []
+travel_points = 0
+for symbol, destination in matches:
+    destinations.append(destination)
+    travel_points += len(destination)
+
+print(f"Destinations: {', '.join(map(str, destinations))}")
+print(f"Travel Points: {travel_points}")
