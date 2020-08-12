@@ -1,0 +1,29 @@
+stops = input()
+input_line = input()
+
+while input_line != "Travel":
+    args = input_line.split(":")
+    command = args[0]
+    if command == "Add Stop":
+        index = int(args[1])
+        string = args[2]
+        if index>=0 and index< len(stops):
+            stops = stops[:index]+string+stops[index:]
+        print(stops)
+
+    elif command == "Remove Stop":
+        startIndex = int(args[1])
+        endIndex = int(args[2])
+        if len(stops)>startIndex>=0 and len(stops)>endIndex>=0:
+            stops = stops[:startIndex]+stops[endIndex+1:]
+        print(stops)
+    else:
+        old_string = args[1]
+        new_string = args[2]
+        stops = stops.replace(old_string, new_string)
+        print(stops)
+
+    input_line = input()
+
+
+print(f"Ready for world tour! Planned stops: {stops}")
