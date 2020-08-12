@@ -1,0 +1,64 @@
+n = int(input())
+plants = {}
+
+for _ in range(n):
+    input_line = input()
+    args = input_line.split("<->")
+    plant = args[0]
+    rarity = int(args[1])
+    if plant not in plants:
+        plants[plant] = [rarity]
+        continue
+    plants[plant][0] += rarity
+
+input_line = input()
+while input_line != "Exhibition":
+    args = input_line.split(": ")
+    command = args[0]
+    if command == "Rate":
+        elements = args[1].split(" - ")
+        plant = elements[0]
+        rating = int(elements[1])
+        if plant in plants:
+            plants[plant].append(rating)
+        else:
+            print("error")
+
+    elif command == "Update":
+        elements = args[1].split(" - ")
+        plant = elements[0]
+        new_rarity = int(elements[1])
+        if plant in plants:
+            plants[plant][0] = new_rarity
+        else:
+            print("error")
+    elif command == "Reset":
+        plant = args[1]
+        if plant in plants:
+            rarity = plants[plant][0]
+            plants[plant].clear()
+            plants[plant] = [rarity]
+        else:
+            print("error")
+
+    input_line = input()
+
+for plant in plants:
+
+    avarage_rating = 0
+    if len(plants[plant])>1:
+        for rating in plants[plant]:
+            avarage_rating += rating
+        avarage_rating -= plants[plant][0]
+        avarage_rating = avarage_rating/(len(plants[plant])-1)
+        rarity = plants[plant][0]
+        plants[plant].clear()
+        plants[plant] = [rarity, avarage_rating]
+    else:
+        plants[plant].append(avarage_rating)
+
+plants = dict(sorted(plants.items(), key=lambda x: (x[1][0],x[1][1]), reverse=True ))
+
+print("Plants for the exhibition:")
+for plant in plants:
+    print(f"- {plant}; Rarity: {plants[plant][0]}; Rating: {'%.2f' % plants[plant][1]}")
